@@ -1,0 +1,15 @@
+=Exportable
+
+Exportable is intended to be an easy abstraction for exporting data
+from models into common data formats. This is experimental first plugin.
+
+==Quick Start
+
+In your model:
+
+  class Contact < ActiveRecord::Base
+    act_as_exportable
+  end
+
+==Usage
+
