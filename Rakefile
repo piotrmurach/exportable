@@ -2,7 +2,22 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-$LOAD_PATH << File.join(File.dirname(__FILE__), 'lib')
-
 desc 'Default: run unit tests.'
-task :default => [:clean, :test]
+task :default => :test
+
+desc 'Test the exportable plugin.'
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib'
+  t.libs << 'test'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = true
+end
+
+desc 'Generate documentation for the exportable plugin.'
+Rake::RDocTask.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'Exportable'
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end

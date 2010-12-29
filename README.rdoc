@@ -8,8 +8,9 @@ from models into common data formats. This is experimental first plugin.
 In your model:
 
   class Contact < ActiveRecord::Base
-    act_as_exportable
+    acts_as_exportable
   end
 
 ==Usage
 
+Copyright (c) 2010 [name of plugin creator], released under the MIT license
