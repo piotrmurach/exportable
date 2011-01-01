@@ -26,6 +26,7 @@ module Exportable
   # Contains methods available as singleton class methods to
   # any ActiveRecord model that calls <tt>acts_as_exportable</tt>
   module SingletonMethods
+
     # intercept calls for exporting methods
     def method_missing(method_id, *args, &block)
       method_name = method_id.to_s
@@ -33,13 +34,18 @@ module Exportable
         if matcher.exporter?
           exporter = match.exporter
           
-          
+          export(exporter.to_sym, *args, &block)
+
+          self.class_eval %{ 
+            def self.#{method_name}(*args, &block)
+              result = find(*args)
+            end
+          } 
+
         end
       end
-
-      options = args.extract_options!
-      
     end
+
   end
 
 end
